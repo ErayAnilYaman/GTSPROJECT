@@ -1,0 +1,82 @@
+﻿@using Data.Db
+@using WebApplication.Models
+
+@model Data.Models.DTOs.ThesisModel
+@{
+
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "btn btn-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.AUTHORNAME)
+                    <input type="text" class="form-control" name="AUTHORNAME" />
+                    @Html.ValidationMessageFor(x => x.AUTHORNAME , "", new { @style = "color:red" })
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(x => x.SUPERVISORNAME)
+                    <input type="text" class="form-control" name="SUPERVISORNAME" />
+                    @Html.ValidationMessageFor(x => x.SUPERVISORNAME, "", new { @style = "color:red" })
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.TITLE)
+                    <input type="text" class="form-control" name="TITLE" />
+                    @Html.ValidationMessageFor(x => x.TITLE, "", new { @style = "color:red" })
+                </div>
+                <br />
+
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.THESISYEAR)
+                    <input type="number" class="form-control" name="THESISYEAR" />
+                    @Html.ValidationMessageFor(x => x.THESISYEAR, "", new { @style = "color:red" })
+                </div>
+                <br />
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.LANGUAGE)
+                    @Html.DropDownListFor(x => x.LANGUAGE,
+                                 Enum.GetValues(typeof(Languages)).Cast<Languages>().Select(
+                                 value => new SelectListItem
+                         {
+                             Text = value.ToString(),
+                             Selected = value.ToString() == Model.LANGUAGE
+                         }), "Select Language", new { @class = "form-control" })
+                </div>
+                <br />
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.TYPE)
+                    @Html.DropDownListFor(x => x.TYPE,
+                             Enum.GetValues(typeof(Types)).Cast<Types>().Select(
+                             value => new SelectListItem
+                    {
+                        Text = value.ToString(),
+                        Selected = value.ToString() == Model.TYPE
+                    }), "Select Type", new { @class = "form-control" })
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <label>University</label>
+                    @Html.DropDownListFor(x => x.UNIVERSITYID, (List<SelectListItem>)ViewBag.Universities, "Select University", new { @class = "form-control" })
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <label>Institute</label>
+                    @Html.DropDownListFor(x => x.INSTITUTEID, (List<SelectListItem>)ViewBag.Institutes, "Select Institute", new { @class = "form-control" })
+                </div>
+                <br />
+
+                <button class="btn btn-success" type="submit">Filter</button>
+            </form>
+        </div>
+    </div>
+</div>

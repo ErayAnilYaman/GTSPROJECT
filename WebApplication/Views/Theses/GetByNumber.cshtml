@@ -1,0 +1,7 @@
+﻿@model string
+
+<form action="/theses/getbynumber" method="post">
+    <input type="text" placeholder="thesis number" name="thesisNumber" />
+    @Html.ValidationMessageFor(model => model, "", new { @style = "color:red" })
+    <button type="submit" class="btn btn-default">Search</button>
+</form>

@@ -1,0 +1,56 @@
+﻿@model List<Data.Models.University>
+@{
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Count > 0 && Model != null)
+{
+    <table class="table table-bordered" id="table">
+        <tr>
+            <th>University Name</th>
+            <th>Update</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr id="sale-table" data-id="@item.UNIVERSITYID">
+                <td>@item.NAME</td>
+                <td><a class="btn btn-warning btnUpdate" href="/admin/updateuniversity/@item.UNIVERSITYID">Update<a/></td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h1>Thesis Not Found!!</h1>
+}
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#table").on("click", ".btnDelete", function () {
+
+            var btn = $(this);
+            bootbox.confirm("Are you sure want to delete ?", function (result) {
+
+                if (result) {
+                    var id = btn.data("id");
+                    $.ajax(
+                        {
+                            type: "GET",
+                            url: "/admin/deleteuniversitybyid/" + id,
+                            success: function () {
+                                btn.parent().parent().remove();
+                                toastr.info("Institute Removed!");
+                            }
+                        });
+                } else if (result === false) {
+                    bootbox.alert("Institute couldn't remove");
+                } else {
+                    bootbox.alert("Error");
+                }
+            });
+
+
+        });
+</script>

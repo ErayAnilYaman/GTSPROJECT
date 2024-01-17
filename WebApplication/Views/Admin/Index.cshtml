@@ -1,0 +1,49 @@
+﻿@model List<Data.Models.Thesis>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+@* <style>
+    #table tr:nth-child(odd) {
+        background-color: white; /* Beyaz arka plan */
+    }
+
+    #table tr:nth-child(even) {
+        background-color: #f2f2f2; /* Gri arka plan */
+    }
+</style> *@
+@if (Model.Count > 0 && Model != null)
+{
+    <table class="table table-bordered" id="table">
+        <tr>
+            <th>Thesis No</th>
+            <th>Thesis Title</th>
+            <th>Author Name</th>
+            <th>Primary Supervisor Name</th>
+            <th>Institute</th>
+            <th>University</th>
+            <th>Language</th>
+            <th>Date</th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr id="sale-table" data-id="@item.THESISID">
+                <td>@item.NUMBER</td>
+                <td>@item.TITLE</td>
+                <td>@item.AUTHOR.AUTHORNAME @item.AUTHOR.LASTNAME</td>
+                <td>@item.SUPERVISOR.FIRSTNAME  @item.SUPERVISOR.LASTNAME</td>
+                <td>@item.INSTITUTE.NAME</td>
+                <td>@item.UNIVERSITY.NAME</td>
+                <td>@item.LANGUAGE</td>
+                <td>@item.SUBMISSIONDATE</td>
+
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h1>Thesis Not Found!!</h1>
+}
+
